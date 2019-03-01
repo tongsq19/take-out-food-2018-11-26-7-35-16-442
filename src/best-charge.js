@@ -12,13 +12,17 @@ let getItemById = function (itemID) {
 function bestCharge(selectedItems) {
   if(selectedItems.toString() === "") return "";
 
-  let checkout = "============= 订餐明细 =============\n";
+  let totalPrice = 0;
   let itemIDQuantityPair = selectedItems[0].split(" x ");
+  let itemQuantity = itemIDQuantityPair[1];
   let item = getItemById(itemIDQuantityPair[0]);
+  let itemSumPrice = itemQuantity * item.price;
+  totalPrice += itemSumPrice;
 
-  checkout += item.name + " x 1 = " + item.price +"元\n";
+  let checkout = "============= 订餐明细 =============\n";
+  checkout += item.name + " x "+ itemQuantity + " = " + itemSumPrice +"元\n";
   checkout += "-----------------------------------\n";
-  checkout += "总计：" + item.price +"元\n";
+  checkout += "总计：" + totalPrice +"元\n";
   checkout += "===================================";
 
   return checkout;
