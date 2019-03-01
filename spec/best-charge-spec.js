@@ -60,5 +60,21 @@ describe("take out food", function() {
 
     expect(expected).toEqual(actual);
   });
+
+  it('Scenario6 : 同时满足"满30减6元"', function() {
+    let selectedItem = ["ITEM0013 x 4", "ITEM0022 x 1"];
+    let actual = main.bestCharge(selectedItem);
+    let expected="============= 订餐明细 =============\n" +
+      "肉夹馍 x 4 = 24元\n" +
+      "凉皮 x 1 = 8元\n" +
+      "-----------------------------------\n" +
+      "使用优惠:\n" +
+      "满30减6元，省6元\n" +
+      "-----------------------------------\n" +
+      "总计：26元\n" +
+      "===================================";
+
+    expect(expected).toEqual(actual);
+  });
 });
 
