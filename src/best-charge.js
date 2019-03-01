@@ -4,7 +4,8 @@ let loadPromotions = require('./promotions.js');
 
 
 function bestCharge(selectedItems) {
-  return "1";
+  if(selectedItems.toString() === "") return "";
+
 }
 
 
