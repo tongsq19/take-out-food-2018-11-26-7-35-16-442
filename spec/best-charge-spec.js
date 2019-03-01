@@ -20,5 +20,16 @@ describe("take out food", function() {
     expect(expected).toEqual(actual);
   });
 
+  it('Scenario3 : 双份菜品', function() {
+    let selectedItem = ["ITEM0013 x 2"];
+    let actual = main.bestCharge(selectedItem);
+    let expected="============= 订餐明细 =============\n" +
+      "肉夹馍 x 2 = 12元\n" +
+      "-----------------------------------\n" +
+      "总计：12元\n" +
+      "===================================";
+
+    expect(expected).toEqual(actual);
+  });
 });
 
