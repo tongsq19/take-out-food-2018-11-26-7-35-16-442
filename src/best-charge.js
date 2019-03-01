@@ -42,6 +42,49 @@ let calcPromotionType2 = function(selectedItems) {
 };
 
 
+let isOrderSatisfyPromotionType1 = function(totalPrice) {
+  return totalPrice >= 30;
+};
+
+let getBestPromotion =function(selectedItems, totalPrice) {
+
+  let promotionType = null;
+  let promotionSave = 0;
+  let resultPromotionType2 = {};
+
+  if(isOrderSatisfyPromotionType2(selectedItems)) {
+    resultPromotionType2 = calcPromotionType2(selectedItems);
+
+    if(isOrderSatisfyPromotionType1(totalPrice)) {
+      if(resultPromotionType2.save <= 6) {
+        promotionType = "满30减6元";
+        promotionSave = 6;
+      } else {
+        promotionType = "指定菜品半价";
+        promotionSave = resultPromotionType2.save;
+      }
+    } else {
+      promotionType = "指定菜品半价";
+      promotionSave = resultPromotionType2.save;
+    }
+  } else if(isOrderSatisfyPromotionType1(totalPrice)) {
+    promotionType = "满30减6元";
+    promotionSave = 6;
+  }
+
+  let checkout="";
+  if(promotionType === "满30减6元") {
+    checkout += "-----------------------------------\n";
+    checkout += "使用优惠:\n";
+    checkout += "满30减6元，省6元\n";
+  } else if (promotionType === "指定菜品半价") {
+    checkout += "-----------------------------------\n";
+    checkout += "使用优惠:\n";
+    checkout += "指定菜品半价("+resultPromotionType2.nameString+")，省"+ promotionSave+"元\n";
+  }
+  return {checkout: checkout, save: promotionSave};
+};
+
 
 function bestCharge(selectedItems) {
   if(selectedItems.toString() === "") return "";
@@ -61,22 +104,16 @@ function bestCharge(selectedItems) {
     checkout += item.name + " x "+ itemQuantity + " = " + itemSumPrice +"元\n";
   });
 
-
-  if(isOrderSatisfyPromotionType2(selectedItems)) {
-    let result = calcPromotionType2(selectedItems);
-    checkout += "-----------------------------------\n";
-    checkout += "使用优惠:\n";
-    checkout += "指定菜品半价(" + result.nameString + ")，省"+result.save+"元\n";
-
-    totalPrice -= result.save;
-  }
-
+  let bestPromotion = getBestPromotion(selectedItems, totalPrice);
+  checkout += bestPromotion.checkout;
   checkout += "-----------------------------------\n";
-  checkout += "总计：" + totalPrice +"元\n";
+  checkout += "总计：" + (totalPrice - bestPromotion.save) +"元\n";
   checkout += "===================================";
 
   return checkout;
 }
+
+
 
 
 
