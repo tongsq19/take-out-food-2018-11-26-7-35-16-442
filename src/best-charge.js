@@ -13,14 +13,21 @@ function bestCharge(selectedItems) {
   if(selectedItems.toString() === "") return "";
 
   let totalPrice = 0;
-  let itemIDQuantityPair = selectedItems[0].split(" x ");
-  let itemQuantity = itemIDQuantityPair[1];
-  let item = getItemById(itemIDQuantityPair[0]);
-  let itemSumPrice = itemQuantity * item.price;
-  totalPrice += itemSumPrice;
 
   let checkout = "============= 订餐明细 =============\n";
-  checkout += item.name + " x "+ itemQuantity + " = " + itemSumPrice +"元\n";
+
+  selectedItems.forEach(function(selectedItem) {
+
+    let itemIDQuantityPair = selectedItem.split(" x ");
+    let itemQuantity = itemIDQuantityPair[1];
+    let item = getItemById(itemIDQuantityPair[0]);
+    let itemSumPrice = itemQuantity * item.price;
+
+    totalPrice += itemSumPrice;
+    checkout += item.name + " x "+ itemQuantity + " = " + itemSumPrice +"元\n";
+  });
+
+
   checkout += "-----------------------------------\n";
   checkout += "总计：" + totalPrice +"元\n";
   checkout += "===================================";
