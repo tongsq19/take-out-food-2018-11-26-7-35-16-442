@@ -1,9 +1,10 @@
-var main = require('../src/best-charge.js');
+let main = require('../src/best-charge.js');
 
 
 describe("take out food", function() {
-  it('Scene 1：', function () {
-    let actual = main.bestCharge();
+  it('Scenario1 : Should return empty string when given empty selectedItem', function () {
+    let selectedItem = [];
+    let actual = main.bestCharge(selectedItem);
     expect("").toEqual(actual);
   });
 
