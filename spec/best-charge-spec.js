@@ -44,5 +44,21 @@ describe("take out food", function() {
 
     expect(expected).toEqual(actual);
   });
+
+  it('Scenario5 : "指定菜品半价"优惠', function() {
+    let selectedItem = ["ITEM0001 x 1", "ITEM0022 x 1"] ;
+    let actual = main.bestCharge(selectedItem);
+    let expected="============= 订餐明细 =============\n" +
+      "黄焖鸡 x 1 = 18元\n" +
+      "凉皮 x 1 = 8元\n" +
+      "-----------------------------------\n" +
+      "使用优惠:\n" +
+      "指定菜品半价(黄焖鸡，凉皮)，省13元\n" +
+      "-----------------------------------\n" +
+      "总计：13元\n" +
+      "===================================";
+
+    expect(expected).toEqual(actual);
+  });
 });
 
